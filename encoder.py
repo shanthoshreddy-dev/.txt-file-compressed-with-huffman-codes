@@ -36,3 +36,13 @@ def matrix_size_bits(matrix):
     total = sum(fixed + len(str(r[3])) if r[2]==0 and r[1]==0 and r[0]!=0
                 else fixed + len(r[3]) for r in matrix)
     return total, fixed
+
+if __name__ == '__main__':
+    import sys
+    path = sys.argv[1] if len(sys.argv) > 1 else 'one_page.txt'
+    matrix, pages, CODES, REVERSE, stats = encode(path)
+    out_path = path.replace('.txt', '_matrix.txt')
+    with open(out_path, 'w') as f:
+        for row in matrix:
+            f.write(f"{row[0]} {row[1]} {row[2]} {row[3]}\n")
+    print(f"Matrix written to {out_path}  ({pages} pages)")
