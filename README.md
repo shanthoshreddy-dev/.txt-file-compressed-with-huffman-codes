@@ -16,9 +16,29 @@ SAMPLE INPUTS:
   twenty_pages.txt  (~5000 words)
 
 HOW TO RUN:
-  python encoder.py one_page.txt
-  python decoder.py one_page_matrix.txt
-  python analyse.py
+
+  Step 1 — Generate text:
+    python3 generate_text.py 5000 > my_test.txt
+      
+  Step 2 — Encode:
+    python3 encoder.py my_test.txt
+
+  Step 3 — Decode:
+    python3 decoder.py my_test_matrix.txt my_test.txt
+
+  Step 4 — Analyse:
+    python3 analyse.py my_test.txt
+
+  NOTE: Change 5000 to any number of words you want.
+  Example: python3 generate_text.py 10000 > my_test.txt
+
+MATRIX FORMAT:
+  Page separator : [page_number, 0, 0, 0]
+  Word row       : [x, 0, z, huffman_code]
+    x    = horizontal pixel position within line-box (10 bits, 0-674)
+    y    = always 0, omitted (line height is fixed)
+    z    = line number on current page (6 bits, 0-49)
+    code = Huffman code from single flat dictionary (avg 6.8 bits)
 
 MATRIX FORMAT:
   Page separator : [page_number, 0, 0, 0]
